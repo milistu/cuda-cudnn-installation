@@ -1,4 +1,8 @@
 # How to install CUDA & cuDNN
+---
+[![Medium](https://miro.medium.com/v2/resize:fit:8978/1*s986xIGqhfsN8U--09_AdA.png)](https://medium.com/@milistu/how-to-install-cuda-cudnn-7e4a00ae4f44)
+---
+
 Setting up CUDA & cuDNN for Machine Learning can be an overwhelming process. In this guide, I will walk you through the steps to install CUDA and cuDNN on your system, ensuring your machine is correctly set up for deep learning tasks. 
 
 **System Configuration:**
