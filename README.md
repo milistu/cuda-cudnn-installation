@@ -2,9 +2,9 @@
 Setting up CUDA & cuDNN for Machine Learning can be an overwhelming process. In this guide, I will walk you through the steps to install CUDA and cuDNN on your system, ensuring your machine is correctly set up for deep learning tasks. 
 
 **System Configuration:**
-- Operating System: Ubuntu 22.4
-- GPU: GeForce RTX 3090
-- ML Framework: Pytorch
+- **Operating System:** Ubuntu 22.4
+- **GPU:** GeForce RTX 3090
+- **ML Framework:** Pytorch
 
 ## Install NVIDIA drivers
 ### Update & Upgrade
@@ -115,7 +115,7 @@ If you are not getting the CUDA version as output, do the following:
   ```
 - Add the CUDA paths to your `.bashrc` file to ensure they are set up every time you open a terminal.
   ```bash
-  echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
+  echo 'export PATH=/usr/local/cuda-12.1/bin:$PATH' >> ~/.bashrc
   ```
 - Apply the changes made to the `.bashrc`
   ```bash
