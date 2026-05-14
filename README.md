@@ -1,11 +1,11 @@
 # How to install CUDA & cuDNN
 
-Setting up CUDA & cuDNN for Machine Learning can be an overwhelming process. In this guide, I will walk you through the steps to install CUDA and cuDNN on your system, ensuring your machine is correctly set up for deep learning tasks. 
+Setting up CUDA & cuDNN for Machine Learning can be overwhelming. In this guide, I will walk you through the steps to install CUDA and cuDNN on your system, ensuring your machine is correctly set up for deep learning tasks. 
 
 **System Configuration:**
-- **Operating System:** Ubuntu 22.4
+- **Operating System:** Ubuntu 22.04
 - **GPU:** GeForce RTX 3090
-- **ML Framework:** Pytorch
+- **ML Framework:** PyTorch
 
 ## Install NVIDIA drivers
 ### Update & Upgrade
@@ -37,7 +37,7 @@ dpkg -l | grep -E 'nvidia|cuda|cudnn|nccl'
 ```bash
 ubuntu-drivers devices
 ```
-We will install the NVIDIA driver tagged recommended - Which indicates which drivers are recommended for each piece of hardware based on compatibility and performance.
+We will install the NVIDIA driver tagged recommended, which indicates which drivers are recommended for each piece of hardware based on compatibility and performance.
 
 ### Install Ubuntu drivers
 ```bash
@@ -45,9 +45,9 @@ sudo ubuntu-drivers autoinstall
 ```
 
 ### Install NVIDIA drivers
-My recommended version is 555, change "XYZ" in the following command to your recommended driver.
+My recommended version is `nvidia-driver-595-open`. If `ubuntu-drivers devices` recommends a different driver on your machine, replace `nvidia-driver-595-open` with that package name.
 ```bash
-sudo apt install nvidia-driver-XZY
+sudo apt install nvidia-driver-595-open
 ```
 Reboot the system for these changes to take effect.
 ```bash
@@ -55,7 +55,7 @@ reboot
 ```
 
 ### Check Installation
-After reboot verify that the following command works:
+After reboot, verify that the following command works:
 ```bash
 nvidia-smi
 ```
@@ -69,17 +69,17 @@ sudo apt update && sudo apt upgrade
 ```
 
 ### Install CUDA Toolkit
-At the moment of writing this text, the newest CUDA version supported by [Pytorch](https://pytorch.org/get-started/locally/#start-locally) is 12.1.
+At the time of writing, the latest CUDA version supported by [PyTorch](https://pytorch.org/get-started/locally/#start-locally) is 13.2.
 
-You can find older versions in the [CUDA Toolkit Archive](https://developer.nvidia.com/cuda-toolkit-archive). In my case, I will be continuing with [CUDA Toolkit 12.1.1](https://developer.nvidia.com/cuda-12-1-1-download-archive) (April 2023).
+You can find older versions in the [CUDA Toolkit Archive](https://developer.nvidia.com/cuda-toolkit-archive). In my case, I will be continuing with [CUDA Toolkit 13.2.0](https://developer.nvidia.com/cuda-13-2-0-download-archive) (March 2026).
 
-You will need to select your operating system (Linux in my case). Afterwards, you will be prompted to select the Architecture. If you are not sure what is the Architecture of your PC you can use the command below (in my case the Architecture is x86_64).
+You will need to select your operating system (Linux in my case). Afterwards, you will be prompted to select the Architecture. If you are not sure what the Architecture of your PC you can use the command below (in my case, the Architecture is x86_64).
 ```bash
 uname -m
 ```
-Next, we need to select the distribution and version of our operating system, in my case Ubuntu 22.04. Lastly, I am using the deb (local) installer type.
+Next, we need to select the distribution and version of our operating system, in my case, Ubuntu 22.04. Lastly, I am using the deb (local) installer type.
 
-These are the commands for installing CUDA Toolkit 12.1:
+These are the commands for installing CUDA Toolkit 13.2:
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
 ```
@@ -87,21 +87,20 @@ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/
 sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
 ```
 ```bash
-wget https://developer.download.nvidia.com/compute/cuda/12.1.1/local_installers/cuda-repo-ubuntu2204-12-1-local_12.1.1-530.30.02-1_amd64.deb
+wget https://developer.download.nvidia.com/compute/cuda/13.2.0/local_installers/cuda-repo-ubuntu2204-13-2-local_13.2.0-595.45.04-1_amd64.deb
 ```
 ```bash
-sudo dpkg -i cuda-repo-ubuntu2204-12-1-local_12.1.1-530.30.02-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu2204-13-2-local_13.2.0-595.45.04-1_amd64.deb
 ```
 ```bash
-sudo cp /var/cuda-repo-ubuntu2204-12-1-local/cuda-*-keyring.gpg /usr/share/keyrings/
+sudo cp /var/cuda-repo-ubuntu2204-13-2-local/cuda-*-keyring.gpg /usr/share/keyrings/
 ```
 ```bash
 sudo apt-get update
 ```
 ```bash
-sudo apt-get -y install cuda-12-1
+sudo apt-get -y install cuda-toolkit-13-2
 ```
-⚠️ **NOTE:** The last command differs from the one on the CUDA installation page. I added “-12–1” to specify the CUDA version to install.
 
 ### Check CUDA install
 ```bash
@@ -109,14 +108,14 @@ nvcc --version
 ```
 ---
 If you are not getting the CUDA version as output, do the following:
-- Ensure that CUDA 12.1 is installed in the correct directory, typically `/usr/local/cuda-12.1`.
+- Ensure that CUDA 13.2 is installed in the correct directory, typically `/usr/local/cuda-13.2`.
 - Create a symlink to the CUDA directory to make it easier to reference.
   ```bash
-  sudo ln -s /usr/local/cuda-12.1 /usr/local/cuda
+  sudo ln -s /usr/local/cuda-13.2 /usr/local/cuda
   ```
 - Add the CUDA paths to your `.bashrc` file to ensure they are set up every time you open a terminal.
   ```bash
-  echo 'export PATH=/usr/local/cuda-12.1/bin:$PATH' >> ~/.bashrc
+  echo 'export PATH=/usr/local/cuda-13.2/bin:$PATH' >> ~/.bashrc
   ```
 - Apply the changes made to the `.bashrc`
   ```bash
@@ -126,31 +125,31 @@ If you are not getting the CUDA version as output, do the following:
 ## Install cuDNN
 
 ### Download the cuDNN .deb file
-Firstly, to match appropriate cuDNN with our CUDA and Driver versions we can use the [table provided by NVIDIA](https://docs.nvidia.com/deeplearning/cudnn/latest/reference/support-matrix.html#id17). In my case, the newest 9.2 cuDNN version is appropriate.
+Firstly, to match appropriate cuDNN with our CUDA and Driver versions, we can use the [table provided by NVIDIA](https://docs.nvidia.com/deeplearning/cudnn/latest/reference/support-matrix.html#id17). In my case, the newest 9.22.0 cuDNN version is appropriate.
 
 You can download the cuDNN file [here](https://developer.nvidia.com/cudnn-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_local), for which you will need an Nvidia account. Same as for CUDA, you will have to select OS, architecture, distribution, version, and installer type.
 
-In my case, to Download Installer for Linux Ubuntu 22.04 x86_64 instructions are as follows:
+In my case, to download the installer for Linux Ubuntu 22.04 x86_64, the instructions are as follows:
 ```bash
-wget https://developer.download.nvidia.com/compute/cudnn/9.2.0/local_installers/cudnn-local-repo-ubuntu2204-9.2.0_1.0-1_amd64.deb
+wget https://developer.download.nvidia.com/compute/cudnn/9.22.0/local_installers/cudnn-local-repo-ubuntu2204-9.22.0_1.0-1_amd64.deb
 ```
 ```bash
-sudo dpkg -i cudnn-local-repo-ubuntu2204-9.2.0_1.0-1_amd64.deb
+sudo dpkg -i cudnn-local-repo-ubuntu2204-9.22.0_1.0-1_amd64.deb
 ```
 ```bash
-sudo cp /var/cudnn-local-repo-ubuntu2204-9.2.0/cudnn-*-keyring.gpg /usr/share/keyrings/
+sudo cp /var/cudnn-local-repo-ubuntu2204-9.22.0/cudnn-*-keyring.gpg /usr/share/keyrings/
 ```
 ```bash
 sudo apt-get update
 ```
 ```bash
-sudo apt-get -y install cudnn-cuda-12
+sudo apt-get -y install cudnn9-cuda-13
 ```
 
 ## Test CUDA with PyTorch
-I assume that you already have Python installed on your machine, so this tutorial would not be covering that part.
+I assume that you already have Python installed on your machine, so this tutorial will not cover that part.
 
-⚠️ **NOTE:** The latest PyTorch requires Python 3.8 or later.
+⚠️ **NOTE:** The latest PyTorch requires Python 3.10 or later.
 
 ### Create a Directory
 ```bash
@@ -169,7 +168,7 @@ source .venv/bin/activate
 
 ### Install PyTorch
 ```bash
-pip3 install torch torchvision torchaudio
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu132
 ```
 
 ### Execute Python test script
@@ -190,10 +189,10 @@ b = torch.rand(1, 3).to(device)
 c = a @ b
 
 print(f"Variable shape: {c.shape}")
-print(f"Variable devie: {c.device}")
+print(f"Variable device: {c.device}")
 ```
 
 ## Conclusion
-If you carefully followed these instructions, you have successfully installed CUDA and cuDNN on your Ubuntu 22.4 system. Your NVIDIA GPU is now ready for deep learning tasks with PyTorch.
+If you carefully followed these instructions, you have successfully installed CUDA and cuDNN on your Ubuntu 22.04 system. Your NVIDIA GPU is now ready for deep learning tasks with PyTorch.
 
-You can also view this guide on [Medium](https://medium.com/@milistu/how-to-install-cuda-cudnn-7e4a00ae4f44). If this guide helped you give it a 👏, share it, and give it a ⭐️ on GitHub.
+You can also view this guide on [Medium](https://medium.com/@milistu/how-to-install-cuda-cudnn-7e4a00ae4f44). If this guide helped you, give it a 👏, share it, and give it a ⭐️ on GitHub.
