@@ -3,7 +3,7 @@
 Setting up CUDA & cuDNN for Machine Learning can be overwhelming. In this guide, I will walk you through the steps to install CUDA and cuDNN on your system, ensuring your machine is correctly set up for deep learning tasks. 
 
 **System Configuration:**
-- **Operating System:** Ubuntu 22.4
+- **Operating System:** Ubuntu 22.04
 - **GPU:** GeForce RTX 3090
 - **ML Framework:** Pytorch
 
@@ -193,6 +193,6 @@ print(f"Variable devie: {c.device}")
 ```
 
 ## Conclusion
-If you carefully followed these instructions, you have successfully installed CUDA and cuDNN on your Ubuntu 22.4 system. Your NVIDIA GPU is now ready for deep learning tasks with PyTorch.
+If you carefully followed these instructions, you have successfully installed CUDA and cuDNN on your Ubuntu 22.04 system. Your NVIDIA GPU is now ready for deep learning tasks with PyTorch.
 
 You can also view this guide on [Medium](https://medium.com/@milistu/how-to-install-cuda-cudnn-7e4a00ae4f44). If this guide helped you, give it a 👏, share it, and give it a ⭐️ on GitHub.
