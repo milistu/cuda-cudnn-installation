@@ -5,7 +5,7 @@ Setting up CUDA & cuDNN for Machine Learning can be overwhelming. In this guide,
 **System Configuration:**
 - **Operating System:** Ubuntu 22.04
 - **GPU:** GeForce RTX 3090
-- **ML Framework:** Pytorch
+- **ML Framework:** PyTorch
 
 ## Install NVIDIA drivers
 ### Update & Upgrade
@@ -45,9 +45,9 @@ sudo ubuntu-drivers autoinstall
 ```
 
 ### Install NVIDIA drivers
-My recommended version is `nvidia-driver-595-open`, change "XYZ" in the following command to your recommended driver.
+My recommended version is `nvidia-driver-595-open`. If `ubuntu-drivers devices` recommends a different driver on your machine, replace `nvidia-driver-595-open` with that package name.
 ```bash
-sudo apt install nvidia-driver-XZY
+sudo apt install nvidia-driver-595-open
 ```
 Reboot the system for these changes to take effect.
 ```bash
