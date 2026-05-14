@@ -168,7 +168,7 @@ source .venv/bin/activate
 
 ### Install PyTorch
 ```bash
-pip3 install torch torchvision torchaudio
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu132
 ```
 
 ### Execute Python test script
@@ -189,7 +189,7 @@ b = torch.rand(1, 3).to(device)
 c = a @ b
 
 print(f"Variable shape: {c.shape}")
-print(f"Variable devie: {c.device}")
+print(f"Variable device: {c.device}")
 ```
 
 ## Conclusion
